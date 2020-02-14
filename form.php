@@ -6,15 +6,11 @@
 </head>
 <body>
 <?php
-echo $_POST["email"];
-echo $_POST["password"];
-
-$servername = "localhost";
-$username = "root";
-$password = "Root!2356";
+$email = $_GET["email"];
+$pword = $_GET["password"];
 
 // Create connection
-$conn = new mysqli($servername, $username, $password);
+$conn = new mysqli("localhost","root","Root!23456","Revision");
 
 // Check connection
 if ($conn->connect_error) {
@@ -22,6 +18,15 @@ if ($conn->connect_error) {
 }
 echo "Connected successfully";
 
+$sql = "INSERT INTO user (username, password) VALUES ('$email', '$pword')";
+
+if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
 ?>
 </body>
 </html>
